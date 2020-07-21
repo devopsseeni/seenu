@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages {
         stage('Git') {
-            steps { git 'https://github.com/awspandian/vasu.git' }
+            steps { git 'https://github.com/devopsseeni/seenu.git' }
         }
 	stage('Build') {
 	            steps { sh label: '', script: 'mvn clean'
@@ -15,7 +15,7 @@ pipeline {
             }
             steps {
                 script {
-                    app = docker.build("dockerpandian/reddy")
+                    app = docker.build("dockersrinivasan/project")
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
                     }
@@ -28,7 +28,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'Docker') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
